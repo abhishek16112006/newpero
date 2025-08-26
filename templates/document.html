@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Document</h2>
+<article class="card">
+  <p><strong>File:</strong> {{ doc.original_name }}</p>
+  <p><a role="button" href="{{ url_for('uploads', filename=doc.filename) }}">Open / Download</a></p>
+  <p class="muted">Keep this link safe. Anyone with the link can view the file in this demo.</p>
+</article>
+{% endblock %}

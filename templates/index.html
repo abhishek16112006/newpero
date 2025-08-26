@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Register a user</h2>
+<form method="post" action="{{ url_for('register') }}">
+  <div class="grid">
+    <input type="text" name="name" placeholder="Full name" required>
+    <input type="email" name="email" placeholder="Email (optional)">
+    <button type="submit">Create User</button>
+  </div>
+  <p class="muted">After creating a user, you will upload a document and get a QR.</p>
+</form>
+
+<h2 style="margin-top:2rem;">Users</h2>
+<div class="grid">
+  {% for u in users %}
+  <article class="card">
+    <header><strong>{{ u.name }}</strong></header>
+    <p class="muted">{{ u.email or "—" }}</p>
+    <footer><a href="{{ url_for('upload_for_user', user_id=u.id) }}">Upload / Manage</a></footer>
+  </article>
+  {% else %}
+  <p>No users yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

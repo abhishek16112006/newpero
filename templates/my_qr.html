@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>QR for {{ doc.original_name }}</h2>
+<p class="muted">User: {{ doc.name }} | Created: {{ doc.created_at }}</p>
+<article class="card">
+  <img class="qr" src="{{ qr_file }}" alt="QR code">
+  <p><strong>Link:</strong> <a href="{{ link }}">{{ link }}</a></p>
+  <p class="muted">Scan this QR or open the link to access the document page.</p>
+</article>
+{% endblock %}

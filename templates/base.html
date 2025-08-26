@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "QR Doc Access" }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <style>
+    body { padding: 1rem; }
+    header { margin-bottom: 1rem; }
+    .qr { max-width: 280px; }
+    .muted { color: #777; font-size: 0.9rem; }
+    .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><strong><a href="{{ url_for('index') }}" style="text-decoration:none;">QR Doc Access</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div>
+          {% for category, message in messages %}
+            <article class="card" style="border-left:4px solid {% if category=='error' %}#e11d48{% else %}#16a34a{% endif %};">
+              {{ message }}
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Upload document for {{ user.name }}</h2>
+<form method="post" enctype="multipart/form-data">
+  <div class="grid">
+    <input type="file" name="file" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+    <button type="submit">Upload & Generate QR</button>
+  </div>
+  <p class="muted">Allowed: pdf, jpg, jpeg, png, webp. Max 10 MB.</p>
+</form>
+
+<h3 style="margin-top:2rem;">Previous documents</h3>
+<div class="grid">
+  {% for d in docs %}
+  <article class="card">
+    <header><strong>{{ d.original_name }}</strong></header>
+    <p class="muted">Uploaded: {{ d.created_at }}</p>
+    <footer>
+      <a href="{{ url_for('show_qr', token=d.token) }}">View QR</a>
+      &nbsp;|&nbsp;
+      <a href="{{ url_for('doc_by_token', token=d.token) }}">Open Link</a>
+    </footer>
+  </article>
+  {% else %}
+  <p>No documents yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
